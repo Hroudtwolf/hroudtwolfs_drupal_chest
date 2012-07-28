@@ -3,3 +3,51 @@
  * Copyright (c) 2011-2012, Marc Sven Kleinböhl (Hroudtwolf) <coding4food@hroudtwolf.de>.
  * All rights reserved.
  */
+ 
+function debux_init () {
+  
+  
+  drupal_add_css (drupal_get_path ('module', 'debux') . '/css/debux.css');
+  drupal_add_js (drupal_get_path ('module', 'debux') . '/js/debux_collapser.js');
+ 
+  return;
+}
+
+function debux ($output, $level = Debux::DEBUGLEVEL_NOTICE)  {
+
+  module_load_include ('inc', 'debux', 'includes/Debux.class');
+  
+  Debux::out($output, $level);
+ 
+  return;
+}
+
+/*
+ * Implements hook_preprocess_page.
+ */
+function debux_preprocess_page (&$variables) {
+
+  module_load_include ('inc', 'debux', 'includes/Debux.class');
+
+  if (! isset ($variables['messages'])) {
+    $variables['messages'] = '';
+  }
+   
+  $variables['messages'] .= Debux::render();
+  
+  return;
+}
+
+/*
+ * Implements hook_theme.
+ */
+function debux_theme () {
+  
+  return array (
+    'debux' => array (
+      'template'  => 'templates/debux',
+      'variables' => array ('output'=>array ())
+    )
+  );
+}
+

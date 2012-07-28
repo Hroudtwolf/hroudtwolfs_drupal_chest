@@ -3,3 +3,5 @@ description = "A debugging tool for drupal developers."
 package     = "Development"
 core        = "7.x"
 version     = "7.x-1.00"
+
+files[]     = "includes/Debux.class.inc"
