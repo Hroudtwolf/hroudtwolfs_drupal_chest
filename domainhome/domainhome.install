@@ -1,0 +1,35 @@
+<?php
+/*
+ * @author By Marc Sven Kleinboehl aka Hroudtwolf.
+ * 
+ * A frontpage by domain selector tool.
+ */
+
+function domainhome_schema () {
+  
+  $schema['domainhome_register'] = array(
+    'description' => 'The base table of the domainhome module.',
+    'fields' => array(
+      'did' => array(
+        'description' => 'The primary ID',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'domain' => array(
+        'description' => 'The domain address.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'home' => array(
+        'description' => 'The home site path.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('did'),
+  );
+   
+  return $schema;
+}

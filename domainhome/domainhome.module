@@ -1,0 +1,51 @@
+<?php
+/*
+ * @author By Marc Sven Kleinboehl aka Hroudtwolf.
+ * 
+ * A frontpage by domain selector tool.
+ */
+
+function domainhome_boot() {
+  
+  global $conf;
+  
+  // module_load_include doesn't work at this boot level.
+  require_once ('includes/data.inc');
+
+  $home_path = _domainhome_data_load_redirection_destination ($_SERVER['HTTP_HOST']);
+  if ($home_path !== FALSE) {
+    $conf['site_frontpage'] = $home_path;
+  }
+  
+  return;
+}
+
+/*
+* Implements hook_permission ().
+*/
+function domainhome_permission () {
+
+  return array (
+    'domainhome config' => array(
+        'title' => t('Configure domain home'), 
+        'description' => t('Allowed to configure domain home.'),
+    ),
+  );
+}
+
+/*
+ * Implements hook_menu ().
+*/
+function domainhome_menu () {
+
+  return array (
+    'admin/structure/domainhome' => array (
+      'title'		          => 'Domain home',
+      'description'			  => 'A frontpage by domain selector tool.',
+      'page callback'     => 'drupal_get_form',
+      'page arguments'	  => array ('_domainhome_config_form'),
+      'file'						  => 'includes/config.inc',
+      'access arguments'	=> array ('domainhome config')
+  )
+  );
+}

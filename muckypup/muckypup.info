@@ -1,0 +1,4 @@
+name        = "muckypub"
+description = "A content removal tool."
+package     = "Content"
+core        = "7.x"
