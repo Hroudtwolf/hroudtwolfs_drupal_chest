@@ -1,8 +1,7 @@
 <?php
 /*
- * @author By Marc Sven Kleinboehl aka Hroudtwolf.
- * 
- * This include file contains functions for loading and saving redirection data.
+ * Copyright (c) 2011-2012, Marc Sven Kleinböhl (Hroudtwolf) <coding4food@hroudtwolf.de>.
+ * All rights reserved.
  */
 
 /*

@@ -1,8 +1,7 @@
 <?php
 /*
- * @author By Marc Sven Kleinboehl aka Hroudtwolf.
- * 
- * This include file contains functions around managing the domain home redirections.
+ * Copyright (c) 2011-2012, Marc Sven Kleinböhl (Hroudtwolf) <coding4food@hroudtwolf.de>.
+ * All rights reserved.
  */
 
 /*

@@ -1,8 +1,7 @@
 <?php
 /*
- * @author By Marc Sven Kleinboehl aka Hroudtwolf.
- * 
- * A frontpage by domain selector tool.
+ * Copyright (c) 2011-2012, Marc Sven Kleinböhl (Hroudtwolf) <coding4food@hroudtwolf.de>.
+ * All rights reserved.
  */
 
 function domainhome_boot() {
