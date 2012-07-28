@@ -1,0 +1,41 @@
+@CHARSET "ISO-8859-1";
+
+#debux-console {
+	
+	background-color: black;
+	color: lightgray;
+	padding: 5px;
+	font-family: monospace;
+	font-size: 11px;
+	width: 100%;
+	border: 2px solid gray;
+}
+
+#debux-console .content {
+	
+	height:   300px;
+	overflow: auto;
+}
+
+#debux-console .header {
+  padding: 2px;
+  background-color: lightgray;
+  color: black;
+}
+
+#debux-console .header h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#debux-console .array-branch {
+ 
+}
+
+#debux-console .array {
+  
+  cursor: pointer;
+  background-color: gray;
+}
