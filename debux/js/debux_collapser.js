@@ -11,7 +11,7 @@
 		
 			$('#debux-console .array').click(function (event){
 				
-				$('.array-branch', this).toggle ();
+				$('.array-branch', $(this).parent ()).toggle ();
 				
 				return;
 			});
