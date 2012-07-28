@@ -1,0 +1,20 @@
+#muckypup-control-center-form .form-wrapper {
+	width: 32%;
+	float: left;
+	margin-right: 1%;
+}
+
+#muckypup-control-elements .form-item-sure {
+	width: auto;
+	float: left;	
+	margin-right: 15px;
+}
+
+#muckypup-control-elements .form-submit {
+  width: auto;
+  float: left;  
+}
+
+#muckypup-control-center-founder-ignore {
+	color: red;
+}

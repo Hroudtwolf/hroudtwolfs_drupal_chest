@@ -1,0 +1,56 @@
+<?php
+/*
+ * @author By Marc Sven Kleinboehl aka Hroudtwolf.
+ * 
+ * A content removal tool.
+ */
+
+
+
+// Contract types.
+define ('MUCKYPUP_CONTRACT_TYPE_NODE', 'node');
+define ('MUCKYPUP_CONTRACT_TYPE_USER', 'user');
+define ('MUCKYPUP_CONTRACT_TYPE_TERM', 'term');
+
+// Stati
+define ('MUCKYPUP_STATUS_ALL', 'all');
+define ('MUCKYPUP_STATUS_ACTIVE', 'active');
+define ('MUCKYPUP_STATUS_INACTIVE', 'inactive');
+define ('MUCKYPUP_STATUS_PUBLISHED', 'published');
+define ('MUCKYPUP_STATUS_UNPUBLISHED', 'unpublished');
+
+// Permissions
+define ('MUCKYPUP_PERMISSION_USE_MODULE', 'use_mucky_pup');
+
+/*
+ * Implements hook_permission ().
+ */
+function muckypup_permission () {
+  
+  return array (
+    MUCKYPUP_PERMISSION_USE_MODULE => array(
+      'title' => t('Use mucky pup'), 
+      'description' => t('Allowed to use mucky pup.'),
+    ),
+  );
+}
+
+/*
+ * Implements hook_menu ().
+ */
+function muckypup_menu () {
+  
+  return array (
+    'admin/content/muckypup' => array (
+      'type'=>MENU_LOCAL_TASK,
+      'title'		          => 'Content removal',
+      'description'			  => 'Bulk removal of nodes, terms and users.',
+      'page callback'     => 'drupal_get_form',
+      'page arguments'	  => array ('_muckypup_control_center_form'),
+      'file'						  => 'includes/control_center.inc',
+      'access arguments'	=> array (MUCKYPUP_PERMISSION_USE_MODULE)
+    )
+  );
+}
+
+

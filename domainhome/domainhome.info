@@ -1,0 +1,7 @@
+name        = "Domain home"
+description = "A frontpage by domain selector tool."
+package     = "Content"
+core        = "7.x"
+
+files[] = "includes/config.inc"
+files[] = "includes/data.inc"
