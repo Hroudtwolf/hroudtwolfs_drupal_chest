@@ -1,10 +1,8 @@
 <?php
 /*
- * @author By Marc Sven Kleinboehl aka Hroudtwolf.
- * 
- * The database layer of the muckypup module.
+ * Copyright (c) 2011-2012, Marc Sven Kleinböhl (Hroudtwolf) <coding4food@hroudtwolf.de>.
+ * All rights reserved.
  */
-
 
 /*
  * Loads an array of filtered node IDs.
