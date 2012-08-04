@@ -11,12 +11,11 @@
 		
 			$('#debux-console .array').click(function (event){
 				
-				$('.array-branch', $(this).parent ()).toggle ();
-				
+				$('.array-branch:first', $(this).parent ()).toggle ();
+				$('.array:first', $(this).parent ()).toggleClass ('opened');
 				return;
 			});
-			
-		
+					
 			return;
 		}
 	};

@@ -5,8 +5,7 @@
  */
  
 function debux_init () {
-  
-  
+    
   drupal_add_css (drupal_get_path ('module', 'debux') . '/css/debux.css');
   drupal_add_js (drupal_get_path ('module', 'debux') . '/js/debux_collapser.js');
  
@@ -29,6 +28,10 @@ function debux_preprocess_page (&$variables) {
 
   module_load_include ('inc', 'debux', 'includes/Debux.class');
 
+  if (! Debux::isOutputAvailable ()) {
+    return;
+  }
+  
   if (! isset ($variables['messages'])) {
     $variables['messages'] = '';
   }
@@ -51,3 +54,19 @@ function debux_theme () {
   );
 }
 
+/*
+ * Implements hook_menu.
+ */
+function debux_menu () {
+  
+  return array (
+    'node/%/debux' => array (
+      'type'	          => MENU_LOCAL_TASK,
+      'page arguments'	  => array (1),
+      'page callback'	  => '_debux_node_console',
+      'file'			  => 'includes/node_console.inc',
+      'access arguments'  => array ('debux node'),
+      'title'			  => 'Debux node'
+    )
+  );
+}

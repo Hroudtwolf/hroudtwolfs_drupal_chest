@@ -27,15 +27,67 @@
   padding: 0;
   margin: 0;
   font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-#debux-console .array-branch {
- 
+
+#debux-console ul {
+	list-style-type: none !important;
+	list-style-position: outside;
+	margin-left: 0px !important;
+	padding-left: 10px !important;
+}
+
+#debux-console li {
+	margin-top: 1px;
+	margin-bottom: 1px;
+	background-color: #222222;
+	color: white;
+	padding: 2px;
 }
 
 #debux-console .array {
-  
-  cursor: pointer;
-  background-color: gray;
+	background-color: lightgray;
+	color: black;
+	cursor: pointer;
+	background-image: url(../images/open.png);
+	background-repeat: no-repeat;
+	background-position: 1px 50%;
+	padding-left: 20px;
 }
+
+#debux-console .array.opened {
+	background-image: url(../images/close.png);
+}
+
+#debux-console .first-level {
+	padding-left: 0px !important;
+}
+
+#debux-console .content ul:first-child {
+	padding-left: 0px !important;
+}
+
+#debux-console .error {
+	color: red !important;	
+}
+
+.debux-link {
+	display: block;
+	border: 2px solid gray;
+	padding: 2px;
+	color: white;
+	background-color: black;
+	background-image: url(../images/console.png);
+	background-repeat: no-repeat;
+	font-family: monospace;
+	font-size: 11px;	
+}
+
+.debux-link:hover {
+	text-decoration: none;
+	color: white;
+	border: 1px solid lightgray;
+}
+	

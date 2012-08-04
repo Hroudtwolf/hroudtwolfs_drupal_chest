@@ -17,37 +17,50 @@ class Debux {
   * @param
   */
   public static function out ($output, $level = self::DEBUGLEVEL_NOTICE) {
-    
+        
     if ($_SESSION[self::SESSION_IDENTIFIER] == NULL) {#
       $_SESSION[self::SESSION_IDENTIFIER] = array ();
     }
   
+    $backtrace = debug_backtrace();
+    
     $_SESSION[self::SESSION_IDENTIFIER][] = (object)array (
-      'output' => $output, 
-      'level'  => $level
+      'output'     => $output, 
+      'level'      => $level,
+      'backtrace'  => (object)$backtrace[1]
     ); 
-    drupal_set_message(123);
+ 
     return;
   }
   
   public static function render () {
 
-    $output                             = '';
-    $outputArray                        = $_SESSION[self::SESSION_IDENTIFIER];
+    $messages                           = $_SESSION[self::SESSION_IDENTIFIER];
     $_SESSION[self::SESSION_IDENTIFIER] = array ();
     
-    module_load_include ('php', 'debux', 'kint/kint.class');
+    return self::renderDebux ($messages);
+  }
 
-    foreach ($outputArray as $outputField) {
- 
-//       ob_start ();
-//       Kint::dump($outputField->output);      
-//       $output .= ob_get_contents();
-//       ob_end_clean();
-$output .= self::varToHtml($outputField->output, $outputField->output);
- 
+  public static function renderDebux ($outputArray, $noBacktrace = FALSE) {
+    
+    $output = '';
+
+    if (empty ($outputArray)) {
+      return FALSE;
     }
- 
+    
+    foreach ($outputArray as $outputField) {
+      
+      $output .= self::varToHtml($outputField->output, $outputField->output, 0, $outputField->level);
+      
+      if (! $noBacktrace) {
+        $output .= t('Line @line in file "@file".', array (
+          '@file'  => self::getRelativePathOf ($outputField->backtrace->file),
+          '@line'  => $outputField->backtrace->line
+        ));
+      }
+    }
+    
     return theme ('debux', array ('output'=>$output));
   }
   
@@ -57,30 +70,56 @@ $output .= self::varToHtml($outputField->output, $outputField->output);
       case self::DEBUGLEVEL_NOTICE:
         return 'notice';
         
-       case self::DEBUGLEVEL_NOTICE:
+       case self::DEBUGLEVEL_ERROR:
         return 'error';
     }
     
     return 'unknown';
   }
   
-  private static function varToHtml($var='', $key='') {
+  private static function varToHtml($var='', $key='', $scopeLevel = 0, $debugLevel = self::DEBUGLEVEL_NOTICE) {
+    
     $type = gettype($var);
     $result = '';
   
     if (in_array($type, array('object','array'))) {
       $result .=  '
-            <ul>
-              <li class="array">'.$type . '('. count($var).') =></li><ul class="array-branch">';
+            <ul ' . ($scopeLevel == 0 ? 'class="first-level"' : '') . '>
+              <li class="array ' . self::getLevelCSSClass($debugLevel) . '">'. $type . '('. count($var).') "' . (is_string($key) ? $key : '') . '" =></li><ul class="array-branch" style="display: none;">';
   
       foreach ($var as $akey => $val) {
-        $result .= self::varToHtml($val, $akey);
+        
+        $scopeLevel++;
+        $result .= self::varToHtml($val, $akey, $scopeLevel, $debugLevel);
+        
       }
       $result .= '</ul></ul>';
     } else {
-      $result .= '<li>'. $type . '::' . $key . ' ('. count ($var) .') = '.$var.'</li>';
+      $result .= '<li class="' . self::getLevelCSSClass($debugLevel) . '">'. $type . '::' . $key . ' ('. count ($var) .') = '.$var.'</li>';
     }
+    
+    $scopeLevel++;
   
     return $result;
+  }
+  
+  private static function getRelativePathOf ($path) {
+    
+    $relevantPath = strpos ($path, '/sites/all/');
+   
+    if ($relevantPath === FALSE) {
+      $relevantPath = strpos ($path, '\\sites\\all\\');
+    }
+
+    if ($relevantPath === FALSE) {
+      return $path;
+    } 
+    
+    return substr ($path, $relevantPath + 1);
+  }
+  
+  public static function isOutputAvailable () {
+    
+    return ! empty ($_SESSION[self::SESSION_IDENTIFIER]);
   }
 }
