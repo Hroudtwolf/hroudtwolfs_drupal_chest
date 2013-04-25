@@ -9,6 +9,8 @@ Contact: coding4food@hroudtwolf.de
 Released modules:
 - Domainhome :: A tool for creating one specific home site for each domain which directs to the drupal installation.
 - Muckypup :: A content removal tool. Bulk deleting filtered contents and users.
+- WhatFa :: Finds each form alter that hooks into a form which is currently displaying.
+- viewsguard_api :: Provides a simple API for custom views access routines.
 
 Requirements:
 - Drupal 7.x
