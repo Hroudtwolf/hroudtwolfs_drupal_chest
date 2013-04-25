@@ -1,0 +1,9 @@
+name          = "What form alter"
+description   = "Finds each form alter that hooks into a form which is currently displaying."
+version       = "7.x-1.00"
+core          = "7.x"
+php           = "5.3.x"
+package       = "Development"
+
+dependencies[] = "devel"
+
