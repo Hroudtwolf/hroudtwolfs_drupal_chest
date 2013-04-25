@@ -1,0 +1,68 @@
+<?php
+/**
+ * @author      Marc Sven Kleinböhl (aka Hroudtwolf)
+ * @copyright   Marc Sven Kleinböhl 2013(c)
+ *
+ * Finds each form alter that hooks into a form which is currently displaying.
+ */
+
+/**
+ * Implements hook_form_alter.
+ * Used for detecting hook_form_alter implementations that
+ * are hooking into forms.
+ */
+function whatfa_form_alter (&$form, &$form_state, $form_id) {
+ 
+  if (! isset ($_SESSION['whatfa'])) {
+    $_SESSION['whatfa'] = array();
+  }
+ 
+  $_SESSION['whatfa'][]= (object)array(
+    'hooks'   => module_implements('form_' . $form_id . '_alter'), 
+    'form_id' => $form_id
+  );
+ 
+  return;
+}
+
+/**
+ * Implements hook_page_alter.
+ */
+function whatfa_page_alter(&$page) {
+ 
+   if (empty($_SESSION['whatfa'])) {
+    return;
+  }
+   
+  drupal_add_css(drupal_get_path('module', 'whatfa') . '/css/whatfa.css');
+  drupal_add_js(drupal_get_path('module', 'whatfa') . '/js/whatfa.js');
+  
+  $whatfa = $_SESSION['whatfa'];
+  unset($_SESSION['whatfa']);
+
+  if (! isset ($page['footer'])) {
+    $region = 'content';
+  }else{
+    $region = 'footer';
+  }
+ 
+  $page[$region]['whatfa']= array(
+    '#type'   => 'markup',
+    '#markup' => theme('whatfa', array('hits' => $whatfa)),
+  );
+ 
+  return;
+}
+
+/**
+ * Implements hook_theme.
+ */
+function whatfa_theme() {
+  
+  return array(
+    'whatfa' => array(
+      'template'  => 'templates/whatfa',
+      'variables' => array('hits'=>array())
+    )
+  );
+}

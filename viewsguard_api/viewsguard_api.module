@@ -1,0 +1,55 @@
+<?php
+/**
+ * @copyright	2013+ by Marc Sven Kleinböhl (aka Hroudtwolf)
+ * @author		Marc Sven Kleinböhl (aka Hroudtwolf)
+ * 
+ * Provides a simple API for custom views access routines.
+ */
+
+/**
+ * Implements hook_views_api()
+ */
+function viewsguard_api_views_api() {
+  
+  return array (
+    'api' => 3,
+  );
+}
+
+/**
+ * Implements hook_views_plugins()
+ */
+function viewsguard_api_views_plugins() {
+ 
+  return array(
+    'access' => array(
+      'viewsguard_api' => array(
+        'title'    => t('Views Guard API'),
+        'help'     => t('This is the access connector of the Views Guard API'),
+        'handler'  => 'ViewsGuardAPIPlugin',
+        'path'     => drupal_get_path('module', 'viewsguard_api'),
+      ),
+    ),
+  );
+}
+
+/**
+ * This function invokes all hook_viewsguard_api_access implementations,
+ * for checking if access can be alluowed to the specific view.
+ * 
+ * @param 	View		$view	The related view object.
+ * @param 	object		$user	The object of the current user.
+ * @return	boolean				TRUE on access allowed.
+ */
+function _viewsguard_api_access_controll ($view, $user) { 
+ 
+  $results = module_invoke_all('viewsguard_api_access_' . $view->name, $view, $user);
+  foreach ($results as $result) {
+    
+    if ($result === FALSE) {
+      return FALSE;
+    } 
+  }
+  
+  return TRUE;
+}

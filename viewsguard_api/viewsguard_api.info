@@ -1,0 +1,10 @@
+name		= "Views Guard API"
+description	= "Provides a simple API for custom views access routines."
+package		= "Development"
+version		= "7.x-1.00"
+core		= "7.x"
+php			= "5.3.x"
+
+dependencies[] = "views"
+
+files[]		= "plugins/views/ViewsGuardAPIPlugin.inc"
