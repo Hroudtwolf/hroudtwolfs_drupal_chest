@@ -1,16 +1,9 @@
-/**
- * @author      Marc Sven Kleinböhl (aka Hroudtwolf)
- * @copyright   Marc Sven Kleinböhl 2013(c)
- *
- * All styles of the WhatFa console.
- */
-
 #whatfa-console {
     position:fixed;
     bottom:0px;
     left:5px;
     z-index: 9999;
-    width: 500px;
+    width: 400px;
     border: 1px solid black;
     text-align: left;
     opacity: 0.90;
@@ -32,6 +25,15 @@
  margin-left:0px;
  margin-right:0px;
  margin-bottom:5px;
+}
+
+#whatfa-console-content span.hooked {
+  color: red;
+}
+
+#whatfa-console-content span.not-hooked {
+  color: #90EE90;
+  text-decoration: underline;
 }
 
 #whatfa-console-header {

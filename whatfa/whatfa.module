@@ -7,11 +7,27 @@
  */
 
 /**
+ * Implements hook_permission.
+ */
+function whatfa_permission () {
+  
+  return array(
+    'whatfa' => array(
+      'title'       => t('View WhatFa console'),
+      'description' => t('Allows to see the WhatFa console.')
+    )
+  );
+}
+/**
  * Implements hook_form_alter.
  * Used for detecting hook_form_alter implementations that
  * are hooking into forms.
  */
 function whatfa_form_alter (&$form, &$form_state, $form_id) {
+ 
+  if (! user_access('whatfa')) {
+    return;
+  }
  
   if (! isset ($_SESSION['whatfa'])) {
     $_SESSION['whatfa'] = array();
@@ -30,7 +46,11 @@ function whatfa_form_alter (&$form, &$form_state, $form_id) {
  */
 function whatfa_page_alter(&$page) {
  
-   if (empty($_SESSION['whatfa'])) {
+  if (! user_access('whatfa')) {
+    return;
+  }
+ 
+  if (empty($_SESSION['whatfa'])) {
     return;
   }
    

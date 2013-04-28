@@ -1,10 +1,3 @@
-/**
- * @author      Marc Sven Kleinböhl (aka Hroudtwolf)
- * @copyright   Marc Sven Kleinböhl 2013(c)
- *
- * This script enables to toggling the WhatFa console.
- */
-
 (function ($) {
   
   Drupal.behaviors.whatfa = { 

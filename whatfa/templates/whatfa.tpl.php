@@ -14,10 +14,10 @@
       <?php if (! empty($hit->hooks)) : ?>
       <br />
       <?php foreach ($hit->hooks as $hook) : ?>
-      -&nbsp;<?php print $hook; ?><br /> 
+      <span class="hooked">-&nbsp;<?php print $hook; ?></span><br /> 
       <?php endforeach; ?>
       <?php else : ?>
-      <?php print t('No hooking modules.'); ?>  
+      <span class="not-hooked"><?php print t('No hooking modules.'); ?></span>
       <?php endif; ?></p>
       <?php endforeach; ?>
   </div>
